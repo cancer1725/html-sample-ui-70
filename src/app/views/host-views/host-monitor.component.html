@@ -1,0 +1,41 @@
+<!-- Copyright (c) 2019 VMware, Inc. All rights reserved. -->
+<div class="viewTitle">{{ 'vsphere.host.monitor' | translate }}</div>
+<div class="spinner-overlay" *ngIf="loading">
+   <span class="spinner"></span>
+</div>
+<clr-datagrid *ngIf="!loading" [(clrDgSelected)]="selectedChassis">
+   <clr-dg-placeholder>{{ 'list.noData' | translate }}
+   </clr-dg-placeholder>
+   <clr-dg-action-bar>
+      <div class="btn-group">
+         <button type="button" class="btn btn-link"
+               (click)="activate()"
+               [disabled]="shouldDisableActivateButton()">
+            {{ 'common.activate' | translate }}
+         </button>
+         <button type="button" class="btn btn-link"
+               (click)="deactivate()"
+               [disabled]="shouldDisableDeactivateButton()">
+            {{ 'common.deactivate' | translate }}
+         </button>
+      </div>
+   </clr-dg-action-bar>
+
+   <clr-dg-column>{{ 'common.name' | translate }}</clr-dg-column>
+   <clr-dg-column>{{ 'common.state' | translate }}</clr-dg-column>
+
+   <clr-dg-row *clrDgItems="let chassis of chassisList"
+         [clrDgItem]="chassis">
+      <clr-dg-cell>
+         <a href="javascript:void(0)"
+               (click)="navigateToChassis(chassis)"
+               (contextmenu)="onContextMenu()">
+            <clr-icon shape="chassisIcon"></clr-icon>
+            {{chassis.name}}
+         </a>
+      </clr-dg-cell>
+      <clr-dg-cell>
+         <app-chassis-status [isActive]="chassis.isActive"></app-chassis-status>
+      </clr-dg-cell>
+   </clr-dg-row>
+</clr-datagrid>

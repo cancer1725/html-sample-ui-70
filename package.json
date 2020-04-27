@@ -1,0 +1,45 @@
+{
+  "name": "html-sample-ui",
+  "version": "1.0.0",
+  "license": "SEE LICENSE IN License-Agreement.html",
+  "scripts": {
+    "build": "node node_modules/@angular/cli/bin/ng build --extract-css --aot",
+    "build:prod": "node node_modules/@angular/cli/bin/ng build --prod",
+    "watch": "node node_modules/@angular/cli/bin/ng build --watch --extract-css",
+    "lint": "node node_modules/@angular/cli/bin/ng lint"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "9.1.0",
+    "@angular/common": "9.1.0",
+    "@angular/compiler": "9.1.0",
+    "@angular/core": "9.1.0",
+    "@angular/forms": "9.1.0",
+    "@angular/http": "7.2.16",
+    "@angular/platform-browser": "9.1.0",
+    "@angular/platform-browser-dynamic": "9.1.0",
+    "@angular/router": "9.1.0",
+    "@clr/angular": "3.1.1",
+    "@clr/core": "3.1.1",
+    "@clr/icons": "3.1.1",
+    "@clr/ui": "3.1.1",
+    "@ngx-translate/core": "12.1.2",
+    "@ngx-translate/http-loader": "4.0.0",
+    "@webcomponents/custom-elements": "1.4.1",
+    "core-js": "^3.6.5",
+    "rxjs": "6.5.4",
+    "tslib": "1.11.1",
+    "zone.js": "0.10.3"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "0.13.8",
+    "@angular/cli": "7.3.8",
+    "@angular/compiler-cli": "7.2.13",
+    "@angular/language-service": "7.2.13",
+    "@types/node": "6.0.60",
+    "codelyzer": "5.1.0",
+    "ts-node": "3.3.0",
+    "tslint": "5.17.0",
+    "typescript": "3.2.4"
+  }
+}

@@ -1,0 +1,97 @@
+<!-- Copyright (c) 2018-2019 VMware, Inc. All rights reserved. -->
+<project name="build-plugin-package" default="build-plugin-package">
+   <description>
+      The file contains ant targets which build the whole plugin package or just the war
+      bundle.
+   </description>
+
+   <!-- Properties specific to this project -->
+   <property environment="env"/>
+   <property name="PLUGIN_NAME" value="html-sample"/>
+   <property name="PLUGIN_UI" value="html-sample-ui"/>
+   <property name="PLUGIN_SERVICE" value="html-sample-service"/>
+   <property name="WAR_BUILD_DIR" value="${basedir}/target"/>
+   <property name="DIST_DIR" value="dist"/>
+   <property name="WEBAPP_DIR" value="${basedir}/src/main/webapp"/>
+   <property name="LOCALES_DIR" value="${basedir}/src/main/locales"/>
+   <property name="WAR_NAME" value="${PLUGIN_UI}.war"/>
+   <property name="PLUGIN_PACKAGE_XML" value="plugin-package.xml"/>
+   <property name="SERVICE_DIR" value="${basedir}/../html-sample-service"/>
+   <property name="PLUGIN_PACKAGE_XML_DIR" value="${basedir}/../plugin-package"></property>
+   <property name="SERVICE_BUILD_DIR" value="${SERVICE_DIR}/target"/>
+   <property name="VSPHERE_SDK_HOME" value="${env.VSPHERE_SDK_HOME}"/>
+
+   <!-- Properties needed to add .cmd ending on npm and ng if running on windows -->
+   <condition property="npm.command" value="npm.cmd" else="npm">
+      <os family="windows"/>
+   </condition>
+
+   <!-- clean the generated build war files -->
+   <target name="clean-war">
+      <delete failonerror="false">
+         <fileset dir="${WAR_BUILD_DIR}">
+            <include name="html-sample-*.war" />
+         </fileset>
+      </delete>
+   </target>
+
+   <!-- clean the generated build jar files-->
+   <target name="clean-jar">
+      <delete dir="${SERVICE_DIR}/target"/>
+      <delete dir="${SERVICE_BUILD_DIR}"/>
+   </target>
+
+   <!-- clean the whole plugin package dir-->
+   <target name="clean-plugin-package">
+      <delete dir="${WAR_BUILD_DIR}"/>
+   </target>
+
+   <target name="check-node-modules-exist">
+      <available file="node_modules" property="node-modules-exists"/>
+   </target>
+
+   <target name="execute-npm-install" depends="check-node-modules-exist" unless="node-modules-exists">
+      <exec executable="${npm.command}">
+         <redirector alwayslog="true"/>
+         <arg value="install"/>
+      </exec>
+   </target>
+
+   <target name="build-plugin-jar" depends="clean-jar">
+      <ant antfile="${SERVICE_DIR}/build-java.xml" dir="${SERVICE_DIR}" inheritAll="false"/>
+   </target>
+
+   <!-- build the war bundle -->
+   <target name="build-plugin-war" depends="clean-war, execute-npm-install">
+      <echo>Building...</echo>
+      <exec executable="${npm.command}" failonerror="true">
+         <redirector alwayslog="true"/>
+         <arg value="run"/>
+         <arg value="lint"/>
+      </exec>
+      <exec executable="${npm.command}" failonerror="true">
+         <redirector alwayslog="true"/>
+         <arg value="run"/>
+         <arg value="build"/>
+      </exec>
+      <war destfile="${WAR_BUILD_DIR}/${WAR_NAME}" manifest="${WEBAPP_DIR}/META-INF/MANIFEST.MF">
+         <fileset dir="${DIST_DIR}">
+            <include name="**/*.*"/>
+         </fileset>
+         <fileset dir="${WEBAPP_DIR}"/>
+         <fileset dir="${basedir}/src/main/">
+            <include name="locales/*.*"/>
+         </fileset>
+      </war>
+   </target>
+
+   <!-- build the plugin package -->
+   <target name="build-plugin-package" depends="clean-plugin-package, build-plugin-war, build-plugin-jar">
+      <mkdir dir="${WAR_BUILD_DIR}/${PLUGIN_NAME}" />
+      <mkdir dir="${WAR_BUILD_DIR}/${PLUGIN_NAME}/plugins" />
+      <copy todir="${WAR_BUILD_DIR}/${PLUGIN_NAME}" file="${PLUGIN_PACKAGE_XML_DIR}/${PLUGIN_PACKAGE_XML}"/>
+      <copy todir="${WAR_BUILD_DIR}/${PLUGIN_NAME}/plugins" file="${WAR_BUILD_DIR}/${PLUGIN_UI}.war"/>
+      <copy todir="${WAR_BUILD_DIR}/${PLUGIN_NAME}/plugins" file="${SERVICE_BUILD_DIR}/${PLUGIN_SERVICE}.jar"/>
+      <copy todir="${WAR_BUILD_DIR}/${PLUGIN_NAME}/plugins" file="${VSPHERE_SDK_HOME}/libs/vim25.jar"/>
+   </target>
+</project>

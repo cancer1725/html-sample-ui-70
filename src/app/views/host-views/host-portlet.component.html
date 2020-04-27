@@ -1,0 +1,27 @@
+<!-- Copyright (c) 2019 VMware, Inc. All rights reserved. -->
+<div class="spinner-overlay" *ngIf="loading">
+   <span class="spinner"></span>
+</div>
+
+<clr-stack-view *ngIf="!loading">
+   <clr-stack-block>
+      <clr-stack-label>{{ 'vsphere.host.portlet.activeChassis' | translate }}</clr-stack-label>
+      <clr-stack-content>
+         <a href="javascript:void(0)"
+               (click)="navigateToChassis(activeChassis)"
+               (contextmenu)="onContextMenu()">
+            {{ activeChassis.length }}
+         </a>
+      </clr-stack-content>
+   </clr-stack-block>
+   <clr-stack-block>
+      <clr-stack-label>{{ 'vsphere.host.portlet.standbyChassis' | translate }}</clr-stack-label>
+      <clr-stack-content>
+         <a href="javascript:void(0)"
+               (click)="navigateToChassis(inactiveChassis)"
+               (contextmenu)="onContextMenu()">
+            {{ inactiveChassis.length }}
+         </a>
+      </clr-stack-content>
+   </clr-stack-block>
+</clr-stack-view>

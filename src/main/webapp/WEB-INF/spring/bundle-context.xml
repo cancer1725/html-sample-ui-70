@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:osgi="http://www.springframework.org/schema/osgi"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:mvc="http://www.springframework.org/schema/mvc"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xsi:schemaLocation="
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/osgi
+      http://www.springframework.org/schema/osgi/spring-osgi.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+   <!-- DO NOT CHANGE this section, it enables Spring MVC @Controller programming model -->
+
+   <mvc:annotation-driven />
+   <context:annotation-config/>
+
+   <!-- Controller beans on the java side -->
+   <bean name="chassisController" class="com.vmware.samples.htmlsample.controllers.ChassisController" />
+
+   <bean name="vcInfoController" class="com.vmware.samples.htmlsample.controllers.VcInfoController" />
+
+   <!-- OSGI references to services used by the controller -->
+
+   <osgi:reference id="chassisService"
+                   interface="com.vmware.samples.htmlsample.services.ChassisService" />
+
+   <osgi:reference id="vcInfoService"
+                   interface="com.vmware.samples.htmlsample.services.VcInfoService" />
+</beans>
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- Copyright (c) 2019 VMware, Inc. All rights reserved. -->
+<html>
+<head>
+  <title>vSphere HTML SDK Sample</title>
+  <meta charset="utf-8"/>
+  <!-- Load MutationObserver polyfill and CSS vars polyfill to support IE11 -->
+  <script type="text/javascript" src="scripts/mutationobserver.min.js"></script>
+  <script type="text/javascript" src="scripts/css-vars-ponyfill.js"></script>
+  <script id="themeScript">
+     //Initialize CSS vars polyfill
+     cssVars({
+        watch: true,
+        onlyVars: true
+     });
+
+     (function() {
+        function loadTheme(isFirstLoad, theme) {
+           var themeName = theme.name;
+           var supportedThemeNames = ["light", "dark"];
+           if (supportedThemeNames.indexOf(theme.name) === -1) {
+              themeName = supportedThemeNames[0];
+           }
+
+           var themeStyleSheetLinkId = "theme-stylesheet-link";
+           var themeUrl = "theme-" + themeName + ".css";
+
+           var styleSheetLinkElement;
+           if (isFirstLoad) {
+              styleSheetLinkElement = document.createElement("link");
+              styleSheetLinkElement.setAttribute("rel", "stylesheet");
+              styleSheetLinkElement.setAttribute("type", "text/css");
+              styleSheetLinkElement.setAttribute("id", themeStyleSheetLinkId);
+              styleSheetLinkElement.setAttribute("href", themeUrl);
+
+              document.write(styleSheetLinkElement.outerHTML);
+           } else {
+              styleSheetLinkElement = document.getElementById(themeStyleSheetLinkId);
+              styleSheetLinkElement.setAttribute("href", themeUrl);
+           }
+
+           document.documentElement.setAttribute("data-theme", themeName);
+        }
+
+        var htmlClientSdk = window.frameElement.htmlClientSdk;
+        if (htmlClientSdk.app.getTheme && htmlClientSdk.event.onThemeChanged) {
+           loadTheme(true, htmlClientSdk.app.getTheme());
+           htmlClientSdk.event.onThemeChanged(loadTheme.bind(this, false));
+        } else {
+           loadTheme(true, { name: 'light' });
+        }
+     })();
+  </script>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script>
+    (function(){
+      var href = document.location.href;
+      href = href.substring(0, href.indexOf("index.html"));
+      document.write('<base href="' + href + '" />');
+    })();
+  </script>
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+

@@ -1,0 +1,56 @@
+<!-- Copyright (c) 2018-2019 VMware, Inc. All rights reserved. -->
+
+<form (ngSubmit)="onSubmit()" class="modal-content-chassis">
+    <section class="form-block">
+        <app-modal-label-input
+                [inputId]="'chassisName'"
+                [inputValue]="chassis.name"
+                [labelValue]="'common.name'"
+                [placeholderValue]="'actions.namePlaceholder'"
+                [valueRequired]="true"
+                [invalidValue]="!isValid() || chassisExists"
+                [invalidValueError]="invalidNameError()"
+                (inputValueChanged)="nameChanged($event)">
+        </app-modal-label-input>
+
+        <app-modal-label-input
+                [inputId]="'chassisServerType'"
+                [inputValue]="chassis.serverType"
+                [labelValue]="'common.serverType'"
+                [placeholderValue]="'actions.serverTypePlaceholder'"
+                (inputValueChanged)="serverTypeChanged($event)">
+        </app-modal-label-input>
+
+        <app-modal-label-input
+                [inputId]="'chassisDimensions'"
+                [inputValue]="chassis.dimensions"
+                [labelValue]="'common.dimensions'"
+                [placeholderValue]="'actions.dimensionsPlaceholder'"
+                (inputValueChanged)="dimensionsChanged($event)">
+        </app-modal-label-input>
+
+        <div class="form-group">
+            <label>
+                {{ 'common.state' | translate }}:
+                <div role="tooltip" aria-haspopup="true" class="tooltip tooltip-md tooltip-top-right">
+                    <clr-icon class="info-icon" shape="info-circle" size="18"></clr-icon>
+                    <span class="tooltip-content">{{ 'actions.whatCanTheStateBe' | translate }}</span>
+                </div>
+            </label>
+            <clr-checkbox-container clrInline>
+                <clr-checkbox-wrapper>
+                    <input clrCheckbox id="chassisState"
+                           type="checkbox" name="state"
+                           [(ngModel)]="chassis.isActive"/>
+                    <label>{{ 'common.active' | translate }}</label>
+                </clr-checkbox-wrapper>
+            </clr-checkbox-container>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn" (click)="onCancel()" id="cancelBtn">{{ 'common.cancel' | translate }}</button>
+            <button type="submit" class="btn btn-primary"
+                    [disabled]="!isValid()" id="saveBtn">{{ 'common.ok' | translate }}</button>
+        </div>
+    </section>
+</form>

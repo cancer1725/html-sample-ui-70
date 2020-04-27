@@ -1,0 +1,34 @@
+<!-- Copyright (c) 2018-2019 VMware, Inc. All rights reserved. -->
+<app-custom-header [chassis]="chassis"
+      (chassisUpdated)="onChassisUpdated($event)"
+      (chassisDeleted)="onChassisDeleted($event)"></app-custom-header>
+<clr-tabs>
+   <clr-tab>
+      <button clrTabLink>{{ 'main.summary' | translate }}</button>
+      <clr-tab-content *clrIfActive>
+         <app-summary-view [chassis]="chassis"></app-summary-view>
+      </clr-tab-content>
+   </clr-tab>
+
+   <clr-tab>
+      <button clrTabLink>{{ 'main.monitor' | translate }}</button>
+      <clr-tab-content *clrIfActive>
+         <app-monitor-view [chassis]="chassis"
+               (chassisUpdated)="onChassisUpdated($event)"></app-monitor-view>
+      </clr-tab-content>
+   </clr-tab>
+
+   <clr-tab>
+      <button clrTabLink>{{ 'main.configure' | translate }}</button>
+      <clr-tab-content *clrIfActive>
+         <app-configure-view [chassis]="chassis"
+               (chassisUpdated)="onChassisUpdated($event)"></app-configure-view>
+      </clr-tab-content>
+   </clr-tab>
+   <clr-tab>
+      <button clrTabLink>{{ 'vsphere.objects.hosts' | translate }}</button>
+      <clr-tab-content *clrIfActive>
+         <app-hosts-list-view></app-hosts-list-view>
+      </clr-tab-content>
+   </clr-tab>
+</clr-tabs>

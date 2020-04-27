@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (c) 2018-2019 VMware, Inc. All rights reserved. -->
+
+<!--
+   html-sample plugin metadata.
+   The <plugin> tag doesn't contain any moduleUri property because it is an HTML plugin.
+
+   In the plugin.xml, resources can be accessed with #{resource_name:key}.
+   The defaultBundle sets a default resource, which can be accessed with #{key}
+   i.e. without the resource_name.
+-->
+
+<plugin id="com.vmware.samples.htmlsample"
+        defaultBundle="com_vmware_samples_htmlsample">
+
+   <!--
+      com_vmware_samples_htmlsample is used for all general localization strings.
+      -->
+   <resources  baseUrl="locales/">
+      <resource>com_vmware_samples_htmlsample</resource>
+   </resources>
+
+   <dependencies>
+      <!-- Allow HTML Client to display plugin icons in menus, shortcuts, object lists
+           Note: the first part of the uri 'html-sample' is based on 'Web-ContextPath:'  from the 'MANIFEST.MF'
+      -->
+      <dependency type="css" uri="html-sample/assets/css/plugin-icons.css" />
+   </dependencies>
+
+   <!-- Plugin Navigator Main Entry Point -->
+   <extension id="com.vmware.samples.htmlsample.entryPoint">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <object>
+         <title>#{pluginName}</title>
+         <icon>#{icon-plugin}</icon>
+         <parentUid>vsphere.core.navigator.solutionsCategory</parentUid>
+         <navigationTargetUid>com.vmware.samples.htmlsample.welcomeView</navigationTargetUid>
+         <viewOpenedUponFocus className="com.vmware.ui.objectnavigator.views.CategoryNodeTreeView" />
+      </object>
+   </extension>
+
+   <!-- Welcome Navigator Category Item and Global View -->
+   <extension id="com.vmware.samples.htmlsample.welcomeView">
+      <extendedPoint>vise.global.views</extendedPoint>
+      <object>
+         <name>#{welcomeNavItem}</name>
+         <contentSpec>
+            <url>html-sample/index.html#/welcome</url>
+            <metadata>
+               <entry>
+                  <key>hasTitle</key>
+                  <value>false</value>
+               </entry>
+            </metadata>
+         </contentSpec>
+      </object>
+   </extension>
+
+   <extension id="com.vmware.samples.htmlsample.welcomeItem">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <object>
+         <title>#{welcomeNavItem}</title>
+         <icon>#{icon-welcome}</icon>
+         <navigationTargetUid>com.vmware.samples.htmlsample.welcomeView</navigationTargetUid>
+         <parentUid>com.vmware.samples.htmlsample.entryPoint</parentUid>
+      </object>
+   </extension>
+
+   <!-- Settings Navigator Category Item and Global View -->
+   <extension id="com.vmware.samples.htmlsample.settingsView">
+      <extendedPoint>vise.global.views</extendedPoint>
+      <object>
+         <name>#{settingsNavItem}</name>
+         <contentSpec>
+            <url>html-sample/index.html#/settings</url>
+            <metadata>
+               <entry>
+                  <key>hasTitle</key>
+                  <value>false</value>
+               </entry>
+            </metadata>
+         </contentSpec>
+      </object>
+   </extension>
+
+   <extension id="com.vmware.samples.htmlsample.settingsItem">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <object>
+         <title>#{settingsNavItem}</title>
+         <icon>#{icon-settings}</icon>
+         <navigationTargetUid>com.vmware.samples.htmlsample.settingsView</navigationTargetUid>
+         <parentUid>com.vmware.samples.htmlsample.entryPoint</parentUid>
+      </object>
+   </extension>
+
+   <!-- Chassis Objects List Navigator Category Item and Global View -->
+   <extension id="com.vmware.samples.htmlsample.objectsListView">
+      <extendedPoint>vise.global.views</extendedPoint>
+      <object>
+         <name>#{chassisListNavItem}</name>
+         <contentSpec>
+            <url>html-sample/index.html#/list</url>
+            <metadata>
+               <entry>
+                  <key>hasTitle</key>
+                  <value>false</value>
+               </entry>
+            </metadata>
+         </contentSpec>
+      </object>
+   </extension>
+   <extension id="com.vmware.samples.htmlsample.objectsListItem">
+      <extendedPoint>vise.navigator.nodespecs</extendedPoint>
+      <object>
+         <title>#{chassisListNavItem}</title>
+         <icon>#{icon-list}</icon>
+         <navigationTargetUid>com.vmware.samples.htmlsample.objectsListView</navigationTargetUid>
+         <parentUid>com.vmware.samples.htmlsample.entryPoint</parentUid>
+      </object>
+   </extension>
+
+   <!-- Plugin Menu for Virtual Machine vSphere Object -->
+   <extension id="com.vmware.samples.htmlsample.vm.menu">
+      <extendedPoint>vsphere.core.menus.solutionMenus</extendedPoint>
+      <object>
+         <label>#{pluginName}</label>
+         <children>
+            <Array>
+               <com.vmware.actionsfw.ActionMenuItemSpec>
+                  <type>action</type>
+                  <uid>com.vmware.samples.htmlsample.vm.action</uid>
+               </com.vmware.actionsfw.ActionMenuItemSpec>
+               <com.vmware.actionsfw.ActionMenuItemSpec>
+                  <type>action</type>
+                  <uid>com.vmware.samples.htmlsample.vm.headless.action</uid>
+               </com.vmware.actionsfw.ActionMenuItemSpec>
+            </Array>
+         </children>
+      </object>
+      <metadata>
+         <objectType>VirtualMachine</objectType>
+      </metadata>
+   </extension>
+
+   <!-- Plugin Action set -->
+   <extension id="com.vmware.samples.htmlsample.vm.actionSet">
+      <extendedPoint>vise.actions.sets</extendedPoint>
+      <object>
+         <actions>
+            <!-- Plugin UI Action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>com.vmware.samples.htmlsample.vm.action</uid>
+               <label>#{vmActionLabel}</label>
+               <delegate>
+                  <className>com.vmware.vsphere.client.HtmlPluginModalAction</className>
+                  <object><root>
+                     <actionUrl>html-sample/index.html#/vm-action-modal</actionUrl>
+                     <dialogTitle>#{vmActionModalTitle}</dialogTitle>
+                     <dialogSize>600,250</dialogSize>
+                     <closable>true</closable>
+                  </root></object>
+               </delegate>
+            </com.vmware.actionsfw.ActionSpec>
+
+            <!-- Plugin Headless Action -->
+            <com.vmware.actionsfw.ActionSpec>
+               <uid>com.vmware.samples.htmlsample.vm.headless.action</uid>
+               <label>#{vmHeadlessActionLabel}</label>
+               <delegate>
+                  <className>com.vmware.vsphere.client.HtmlPluginHeadlessAction</className>
+                  <object><root>
+                     <actionUrl>html-sample/rest/vm-headless-action</actionUrl>
+                  </root></object>
+               </delegate>
+            </com.vmware.actionsfw.ActionSpec>
+         </actions>
+      </object>
+      <metadata>
+         <objectType>VirtualMachine</objectType>
+      </metadata>
+   </extension>
+
+   <extension id="com.vmware.samples.htmlsample.vm.summaryPortlet">
+      <extendedPoint>vsphere.core.vm.summarySectionViews</extendedPoint>
+      <object>
+         <name>#{vmPortletTitle}</name>
+         <contentSpec>
+            <url>html-sample/index.html#/vm-portlet</url>
+         </contentSpec>
+      </object>
+   </extension>
+
+   <extension id="com.vmware.samples.htmlsample.host.summaryPortlet">
+      <extendedPoint>vsphere.core.host.summarySectionViews</extendedPoint>
+      <object>
+         <name>#{hostPortletTitle}</name>
+         <contentSpec>
+            <url>html-sample/index.html#/host-portlet</url>
+         </contentSpec>
+      </object>
+   </extension>
+
+   <extension id="com.vmware.samples.htmlsample.vm.monitorCategory">
+      <extendedPoint>vsphere.core.vm.monitorCategories</extendedPoint>
+      <object>
+         <label>#{vmMonitorCategoryTitle}</label>
+      </object>
+   </extension>
+
+   <extension id="com.vmware.samples.htmlsample.vm.monitorView">
+      <extendedPoint>vsphere.core.vm.monitorViews</extendedPoint>
+      <object>
+         <name>#{vmMonitorViewTitle}</name>
+         <categoryUid>com.vmware.samples.htmlsample.vm.monitorCategory</categoryUid>
+         <contentSpec>
+            <url>html-sample/index.html#/vm-monitor</url>
+         </contentSpec>
+      </object>
+   </extension>
+
+    <extension id="com.vmware.samples.htmlsample.host.monitorCategory">
+        <extendedPoint>vsphere.core.host.monitorCategories</extendedPoint>
+        <object>
+            <label>#{hostMonitorCategoryTitle}</label>
+        </object>
+    </extension>
+
+    <extension id="com.vmware.samples.htmlsample.host.monitorView">
+        <extendedPoint>vsphere.core.host.monitorViews</extendedPoint>
+        <object>
+            <name>#{hostMonitorViewTitle}</name>
+            <categoryUid>com.vmware.samples.htmlsample.host.monitorCategory</categoryUid>
+            <contentSpec>
+                <url>html-sample/index.html#/host-monitor</url>
+            </contentSpec>
+        </object>
+    </extension>
+
+   <extension id="com.vmware.samples.htmlsample.vm.configureCategory">
+      <extendedPoint>vsphere.core.vm.manageCategories</extendedPoint>
+      <object>
+         <label>#{vmConfigureCategoryTitle}</label>
+      </object>
+   </extension>
+
+   <extension id="com.vmware.samples.htmlsample.configureView">
+      <extendedPoint>vsphere.core.vm.manageViews</extendedPoint>
+      <object>
+         <name>#{vmConfigureViewTitle}</name>
+         <categoryUid>com.vmware.samples.htmlsample.vm.configureCategory</categoryUid>
+         <contentSpec>
+            <url>html-sample/index.html#/vm-configure</url>
+         </contentSpec>
+      </object>
+   </extension>
+</plugin>

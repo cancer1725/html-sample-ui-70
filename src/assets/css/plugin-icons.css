@@ -1,0 +1,66 @@
+/* Copyright (c) 2019 VMware, Inc. All rights reserved. */
+
+/*
+ * EXTERNAL ICONS SUPPORT: plugin-icons.css contain "external" icons, i.e. the ones
+ * displayed outside plugin's views, in the main app menus, shortcuts or object lists.
+ * Do not include other CSS rules here!
+ */
+.com_vmware_samples_htmlsample-icon-plugin {
+    background: none;
+    background-image: url("../images/plugin.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: text-bottom;
+    margin: 1px 4px 0;
+}
+[data-plugin-theme="dark"] .com_vmware_samples_htmlsample-icon-plugin {
+    background-image: url("../images-dark/plugin.svg");
+}
+
+.com_vmware_samples_htmlsample-icon-welcome {
+    background: none;
+    background-image: url("../images/welcome.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: text-bottom;
+    margin: 1px 4px 0;
+}
+[data-plugin-theme="dark"] .com_vmware_samples_htmlsample-icon-welcome {
+    background-image: url("../images-dark/welcome.svg");
+}
+
+.com_vmware_samples_htmlsample-icon-settings {
+    background: none;
+    background-image: url("../images/settings.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: text-bottom;
+    margin: 1px 4px 0;
+}
+[data-plugin-theme="dark"] .com_vmware_samples_htmlsample-icon-settings {
+    background-image: url("../images-dark/settings.svg");
+}
+
+.com_vmware_samples_htmlsample-icon-list {
+    background: none;
+    background-image: url("../images/list.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: text-bottom;
+    margin: 1px 4px 0;
+}
+[data-plugin-theme="dark"] .com_vmware_samples_htmlsample-icon-list {
+    background-image: url("../images-dark/list.svg");
+}
