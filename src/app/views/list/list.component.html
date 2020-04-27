@@ -1,81 +1,76 @@
 <!-- Copyright (c) 2018-2019 VMware, Inc. All rights reserved. -->
 <div class="spinner-overlay " *ngIf="loading">
-   <span class="spinner"></span>
+	<span class="spinner"></span>
 </div>
 <div class="viewTitle">{{ 'list.chassisList' | translate }}</div>
 <div class="chassis-list-view">
-   <div class="chassises-datagrid-container">
-      <clr-datagrid [(clrDgSelected)]="selectedChassis"
-            [clrDgRowSelection]="true">
+	<div class="chassises-datagrid-container">
 
-         <clr-dg-placeholder>{{ 'list.noData' | translate }}
-         </clr-dg-placeholder>
+		<clr-datagrid [(clrDgSelected)]="selectedChassis" [clrDgRowSelection]="true">
 
-         <clr-dg-action-bar>
-            <div class="btn-group">
-               <button type="button" class="btn btn-sm btn-secondary"
+			<clr-dg-placeholder>{{ 'list.noData' | translate }}
+			</clr-dg-placeholder>
+
+			<clr-dg-action-bar>
+				<div class="btn-group">
+					<button type="button" class="btn btn-sm btn-secondary"
                      (click)="onAdd()">
                   <clr-icon shape="plus"></clr-icon>
                   {{ 'list.addChassis' | translate }}
                </button>
-               <button type="button" class="btn btn-sm btn-secondary"
+					<button type="button" class="btn btn-sm btn-secondary"
                      (click)="onAddWizard()">
                   <clr-icon shape="plus"></clr-icon>
                   {{ 'list.addChassisWizard' | translate }}
                </button>
-               <button type="button" class="btn btn-sm btn-secondary"
+					<button type="button" class="btn btn-sm btn-secondary"
                      (click)="onEdit()"
                      [disabled]="selectedChassis.length != 1">
                   <clr-icon shape="pencil"></clr-icon>
                   {{ 'common.edit' | translate }}
                </button>
-               <button type="button" class="btn btn-sm btn-secondary"
+					<button type="button" class="btn btn-sm btn-secondary"
                      (click)="onDelete()"
                      [disabled]="selectedChassis.length <= 0">
                   <clr-icon shape="times-circle"></clr-icon>
                   {{ 'common.delete' | translate }}
                </button>
-            </div>
-         </clr-dg-action-bar>
+				</div>
+			</clr-dg-action-bar>
 
-         <clr-dg-column>{{ 'common.name' | translate }}</clr-dg-column>
-         <clr-dg-column>{{ 'common.state' | translate }}</clr-dg-column>
+			<clr-dg-column>{{ 'common.name' | translate }}</clr-dg-column>
+			<clr-dg-column>{{ 'common.state' | translate }}</clr-dg-column>
 
-         <clr-dg-row *clrDgItems="let chassis of chassisList"
-               [clrDgItem]="chassis">
-            <clr-dg-cell>
-               <clr-icon shape="chassisIcon"></clr-icon>
-               {{chassis.name}}
-            </clr-dg-cell>
-            <clr-dg-cell>
-               <app-chassis-status [isActive]="chassis.isActive"></app-chassis-status>
-            </clr-dg-cell>
-         </clr-dg-row>
+			<clr-dg-row *clrDgItems="let chassis of chassisList" [clrDgItem]="chassis">
+				<clr-dg-cell>
+					<clr-icon shape="chassisIcon"></clr-icon>
+					{{chassis.name}}
+				</clr-dg-cell>
+				<clr-dg-cell>
+					<app-chassis-status [isActive]="chassis.isActive"></app-chassis-status>
+				</clr-dg-cell>
+			</clr-dg-row>
 
-         <clr-dg-footer>
-            <clr-dg-pagination #pagination
-                  [clrDgPageSize]="numberOfChassisPerPage"></clr-dg-pagination>
-         </clr-dg-footer>
+			<clr-dg-footer>
+				<clr-dg-pagination #pagination [clrDgPageSize]="numberOfChassisPerPage"></clr-dg-pagination>
+			</clr-dg-footer>
 
-      </clr-datagrid>
-   </div>
+		</clr-datagrid>
+	</div>
 
-   <div class="splitter"></div>
+	<div class="splitter"></div>
 
-
-   <div class="details-container">
-      <div *ngIf="selectedChassis.length === 0" class="details-message">{{
+	<div class="details-container">
+		<div *ngIf="selectedChassis.length === 0" class="details-message">{{
          'list.noObjectsSelected' | translate }}
-      </div>
-      <div *ngIf="selectedChassis.length > 1" class="details-message">{{
+		</div>
+		<div *ngIf="selectedChassis.length > 1" class="details-message">{{
          'list.multipleObjectsSelected' | translate }}
-      </div>
-      <app-details-view [chassis]="selectedChassis[0]"
-            *ngIf="selectedChassis.length === 1"
-            (chassisUpdated)="onChassisUpdated($event)"
-            (chassisDeleted)="onChassisDeleted($event)"></app-details-view>
-   </div>
+		</div>
+		<app-details-view [chassis]="selectedChassis[0]" *ngIf="selectedChassis.length === 1"
+			(chassisUpdated)="onChassisUpdated($event)" (chassisDeleted)="onChassisDeleted($event)"></app-details-view>
+	</div>
 
-   
+
 </div>
 
