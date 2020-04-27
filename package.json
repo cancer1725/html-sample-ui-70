@@ -27,9 +27,13 @@
     "@ngx-translate/http-loader": "4.0.0",
     "@webcomponents/custom-elements": "1.4.1",
     "core-js": "2.6.9",
-    "rxjs": "6.5.4",
-    "tslib": "1.11.1",
-    "zone.js": "0.10.3"
+    "css-vars-ponyfill": "1.9.0",
+    "jquery": "^3.5.0",
+    "mutationobserver-shim": "0.3.2",
+    "node-sass": "^4.14.0",
+    "rxjs": "6.3.3",
+    "tslib": "^1.10.0",
+    "zone.js": "0.8.29"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.13.8",
