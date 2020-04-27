@@ -16,9 +16,9 @@ export class AppComponent {
     translate.addLangs(['en-US', 'de-DE', 'fr-FR']);
     translate.setDefaultLang('en-US');
 
-    const locale = (<any>window.frameElement).htmlClientSdk.app.getClientLocale();
-    if (locale && translate.getLangs().indexOf(locale) > 0) {
-      translate.use(locale);
-    }
+    //const locale = (<any>window.frameElement).htmlClientSdk.app.getClientLocale();
+    //if (locale && translate.getLangs().indexOf(locale) > 0) {
+      translate.use('en-US');
+    //}
   }
 }

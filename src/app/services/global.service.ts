@@ -17,7 +17,7 @@ export class GlobalService {
    public readonly htmlClientSdk: any;
 
    constructor(protected http: Http) {
-      this.htmlClientSdk = (<any>window.frameElement).htmlClientSdk;
+      /this.htmlClientSdk = (<any>window.frameElement).htmlClientSdk;
    }
 
    protected handleError(error: any): Promise<any> {
