@@ -1,5 +1,5 @@
 {
-  "name": "html-sample-ui",
+  "name": "hiStoragePluginHtml-ui",
   "version": "1.0.0",
   "license": "SEE LICENSE IN License-Agreement.html",
   "scripts": {
@@ -26,7 +26,7 @@
     "@ngx-translate/core": "12.1.2",
     "@ngx-translate/http-loader": "4.0.0",
     "@webcomponents/custom-elements": "1.4.1",
-    "core-js": "^3.6.5",
+    "core-js": "2.6.9",
     "rxjs": "6.5.4",
     "tslib": "1.11.1",
     "zone.js": "0.10.3"

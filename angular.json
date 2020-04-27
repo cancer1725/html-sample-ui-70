@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "html-sample-ui": {
+    "hiStoragePluginHtml-ui": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -24,8 +24,8 @@
                 "output": "/scripts"
               },
               {
-                "glob": "mutationobserver.min.js",
-                "input": "node_modules/mutationobserver-shim/dist",
+                "glob": "jquery.min.js",
+                "input": "node_modules/jquery/dist",
                 "output": "/scripts"
               }
             ],
@@ -62,7 +62,9 @@
               }
             ],
             "scripts": [
-              "node_modules/@webcomponents/custom-elements/custom-elements.min.js"
+              "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
+              "src/main/webapp/resources/js/web-platform.js",
+              "src/main/webapp/resources/wizards/wizardCommon.js"
             ]
           },
           "configurations": {
@@ -97,7 +99,7 @@
       }
     }
   },
-  "defaultProject": "html-sample-ui",
+  "defaultProject": "hiStoragePluginHtml-ui",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
