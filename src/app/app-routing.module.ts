@@ -32,7 +32,7 @@ const routes: Routes = [
    {path: 'vm-portlet', component: VmPortletComponent},
    {path: 'host-monitor', component: HostMonitorComponent},
    {path: 'host-portlet', component: HostPortletComponent},
-   {path: '**', pathMatch: 'full', component: ListComponent}
+   {path: '**', redirectTo: 'list' }
 ];
 
 @NgModule({
