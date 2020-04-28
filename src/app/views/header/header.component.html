@@ -1,7 +1,7 @@
 <!-- Copyright (c) 2019 VMware, Inc. All rights reserved. -->
 
-<div *ngIf="chassis">
-   <span class="chassis-title">{{chassis.name}}</span>
+<div>
+   <span class="chassis-title">{{chassis.name}`}</span>
    <clr-dropdown [clrCloseMenuOnItemClick]="true">
       <button type="button" class="dropdown-toggle btn btn-link" clrDropdownTrigger>
          {{ 'common.actions' | translate }}
@@ -10,11 +10,11 @@
       <clr-dropdown-menu>
          <button type="button" clrDropdownItem (click)="onEdit()"><clr-icon shape="edit"></clr-icon> {{ 'common.edit' | translate }}</button>
          <button type="button" clrDropdownItem (click)="onDelete()"><clr-icon shape="times-circle"></clr-icon> {{ 'common.delete' | translate }}</button>
-         <button type="button" class="btn btn-link" clrDropdownItem [ngClass]="(chassis.isActive) ? 'disabled' : 'enabled'"
+         <!-- button type="button" class="btn btn-link" clrDropdownItem [ngClass]="(chassis.isActive) ? 'disabled' : 'enabled'"
                  (click)="(!chassis.isActive) ? onActivate() : null">
             <clr-icon shape="check"></clr-icon>
             {{ 'common.activate' | translate }}
-         </button>
+         </button -->
       </clr-dropdown-menu>
    </clr-dropdown>
 
