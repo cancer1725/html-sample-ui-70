@@ -61,14 +61,17 @@
 	<div class="splitter"></div>
 
 	<div class="details-container">
-		<div *ngIf="selectedChassis.length === 0" class="details-message">{{
+		<!-- div *ngIf="selectedChassis.length === 0" class="details-message">{{
          'list.noObjectsSelected' | translate }}
-		</div>
+		</div
 		<div *ngIf="selectedChassis.length > 1" class="details-message">{{
          'list.multipleObjectsSelected' | translate }}
 		</div>
 		<app-details-view [chassis]="selectedChassis[0]" *ngIf="selectedChassis.length === 1"
-			(chassisUpdated)="onChassisUpdated($event)" (chassisDeleted)="onChassisDeleted($event)"></app-details-view>
+			(chassisUpdated)="onChassisUpdated($event)" (chassisDeleted)="onChassisDeleted($event)"></app-details-view> -->
+
+    <app-details-view></app-details-view>
+
 	</div>
 
 
